@@ -20,16 +20,16 @@
 
 ## items table
 
-| Column                     | Type       | Options                        |
-| -------------------------- | ---------- | ------------------------------ |
-| name                       | string     | null: false                    |
-| info                       | text       | null: false                    |
-| price                      | integer    | null: false                    |
-| category_id                | references | null: false, foreign_key: true |
-| sales_status_id            | references | null: false, foreign_key: true |
-| shipping_fee_status_id     | references | null: false, foreign_key: true |
-| prefecture_id              | references | null: false, foreign_key: true |
-| item_scheduled_delivery_id | references | null: false, foreign_key: true |
+| Column                  | Type    | Options                        |
+| ----------------------- | ------- | ------------------------------ |
+| name                    | string  | null: false                    |
+| info                    | text    | null: false                    |
+| price                   | integer | null: false                    |
+| category                | integer | null: false, foreign_key: true |
+| sales_status            | integer | null: false, foreign_key: true |
+| shipping_fee_status     | integer | null: false, foreign_key: true |
+| prefecture              | integer | null: false, foreign_key: true |
+| item_scheduled_delivery | integer | null: false, foreign_key: true |
 
 ## items association
 
@@ -43,11 +43,11 @@
 
 ## comments table
 
-| Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
-| text    | text       | null: false                    |
-| user_id | references | null: false, foreign_key: true |
-| item_id | references | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| text   | text       | null: false                    |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
 
 ## comments association
 
@@ -56,11 +56,11 @@
 
 ## orders table
 
-| Column    | Type       | Options                        |
-| --------- | ---------- | ------------------------------ |
-| item_id   | references | null: false, foreign_key: true |
-| buyer_id  | references | null: false, foreign_key: true |
-| seller_id | references | null: false, foreign_key: true |
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| item   | references | null: false, foreign_key: true |
+| buyer  | references | null: false, foreign_key: true |
+| seller | references | null: false, foreign_key: true |
 
 ## orders association
 
@@ -71,13 +71,13 @@
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
-| order_id      | references | null: false, foreign_key: true |
+| order         | references | null: false, foreign_key: true |
 | zip_code      | integer    | null: false, foreign_key: true |
-| prefecture_id | references | null: false, foreign_key: true |
+| prefecture_id | integer    | null: false, foreign_key: true |
 | city          | string     | null: false                    |
 | street        | string     | null: false                    |
-| building      | string     | null: false                    |
-| phone_number  | integer    | null: false                    |
+| building      | string     |                                |
+| phone_number  | string     | null: false                    |
 
 ## addresses association
 
