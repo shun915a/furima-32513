@@ -15,21 +15,23 @@
 
 ## users association
 
-- has_many :items, through: :orders
+- has_many :items
+- has_many :orders
 - has_many :comments
 
 ## items table
 
-| Column                     | Type    | Options                        |
-| -------------------------- | ------- | ------------------------------ |
-| name                       | string  | null: false                    |
-| info                       | text    | null: false                    |
-| price                      | integer | null: false                    |
-| category_id                | integer | null: false, foreign_key: true |
-| sales_status_id            | integer | null: false, foreign_key: true |
-| shipping_fee_status_id     | integer | null: false, foreign_key: true |
-| prefecture_id              | integer | null: false, foreign_key: true |
-| item_scheduled_delivery_id | integer | null: false, foreign_key: true |
+| Column                     | Type       | Options                        |
+| -------------------------- | ---------- | ------------------------------ |
+| user                       | references | null: false, foreign_key: ture |
+| name                       | string     | null: false                    |
+| info                       | text       | null: false                    |
+| price                      | integer    | null: false                    |
+| category_id                | integer    | null: false                    |
+| sales_status_id            | integer    | null: false                    |
+| shipping_fee_status_id     | integer    | null: false                    |
+| prefecture_id              | integer    | null: false                    |
+| item_scheduled_delivery_id | integer    | null: false                    |
 
 ## items association
 
@@ -60,14 +62,15 @@
 
 - belongs_to :user
 - belongs_to :item
+- has_one :address
 
 ## addresses table
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | order         | references | null: false, foreign_key: true |
-| zip_code      | integer    | null: false, foreign_key: true |
-| prefecture_id | integer    | null: false, foreign_key: true |
+| zip_code      | integer    | null: false                    |
+| prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | street        | string     | null: false                    |
 | building      | string     |                                |
@@ -75,4 +78,4 @@
 
 ## addresses association
 
-- has_one :order
+- belongs_to :orders
