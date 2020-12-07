@@ -20,16 +20,16 @@
 
 ## items table
 
-| Column                  | Type    | Options                        |
-| ----------------------- | ------- | ------------------------------ |
-| name                    | string  | null: false                    |
-| info                    | text    | null: false                    |
-| price                   | integer | null: false                    |
-| category                | integer | null: false, foreign_key: true |
-| sales_status            | integer | null: false, foreign_key: true |
-| shipping_fee_status     | integer | null: false, foreign_key: true |
-| prefecture_id           | integer | null: false, foreign_key: true |
-| item_scheduled_delivery | integer | null: false, foreign_key: true |
+| Column                     | Type    | Options                        |
+| -------------------------- | ------- | ------------------------------ |
+| name                       | string  | null: false                    |
+| info                       | text    | null: false                    |
+| price                      | integer | null: false                    |
+| category_id                | integer | null: false, foreign_key: true |
+| sales_status_id            | integer | null: false, foreign_key: true |
+| shipping_fee_status_id     | integer | null: false, foreign_key: true |
+| prefecture_id              | integer | null: false, foreign_key: true |
+| item_scheduled_delivery_id | integer | null: false, foreign_key: true |
 
 ## items association
 
