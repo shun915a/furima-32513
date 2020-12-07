@@ -2,41 +2,44 @@
 
 ## users table
 
-| Column          | Type   | options     |
-| --------------- | ------ | ----------- |
-| email           | string | null: false |
-| password        | string | null: false |
-| nickname        | string | null: false |
-| first_name      | string | null: false |
-| first_name_kana | string | null: false |
-| last_name       | string | null: false |
-| last_name_kana  | string | null: false |
-| birthday        | date   | null: false |
+| Column             | Type   | options     |
+| ------------------ | ------ | ----------- |
+| email              | string | null: false |
+| encrypted_password | string | null: false |
+| nickname           | string | null: false |
+| first_name         | string | null: false |
+| first_name_kana    | string | null: false |
+| last_name          | string | null: false |
+| last_name_kana     | string | null: false |
+| birthday           | date   | null: false |
 
 ## users association
 
-- has_many :items
+- has_many :items, through: :orders
 - has_many :comments
 
 ## items table
 
-| Column      | Type          | Options     |
-| ----------- | ------------- | ----------- |
-| name        | string        | null: false |
-| info        | text          | null: false |
-| price       | integer       | null: false |
-| image       | ActiveStorage |             |
-| sold_status | boolean       |             |
+| Column                     | Type       | Options                        |
+| -------------------------- | ---------- | ------------------------------ |
+| name                       | string     | null: false                    |
+| info                       | text       | null: false                    |
+| price                      | integer    | null: false                    |
+| category_id                | references | null: false, foreign_key: true |
+| sales_status_id            | references | null: false, foreign_key: true |
+| shipping_fee_status_id     | references | null: false, foreign_key: true |
+| prefecture_id              | references | null: false, foreign_key: true |
+| item_scheduled_delivery_id | references | null: false, foreign_key: true |
 
 ## items association
 
-- belongs_to :users
+- belongs_to :user
 - has_many :comments
-- belongs_to :categories
-- belongs_to :sales_statuses
-- belongs_to :shipping_fee_statuses
-- belongs_to :prefectures
-- belongs_to :item_scheduled_deliveries
+- has_one :category
+- has_one :sales_status
+- has_one :shipping_fee_status
+- has_one :prefecture
+- has_one :item_scheduled_delivery
 
 ## comments table
 
@@ -48,55 +51,35 @@
 
 ## comments association
 
-- belongs_to :users
-- belongs_to :items
+- belongs_to :user
+- belongs_to :item
 
-## categories table (active_hash)
+## orders table
 
-| Column   | Type   | Options |
-| -------- | ------ | ------- |
-| category | string |         |
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| item_id   | references | null: false, foreign_key: true |
+| buyer_id  | references | null: false, foreign_key: true |
+| seller_id | references | null: false, foreign_key: true |
 
-## categories association
+## orders association
 
-- has_many :items
+- has_one :item
+- has_one :user
 
-## sales_statuses table (active_hash)
+## addresses table
 
-| Column       | Type   | Options |
-| ------------ | ------ | ------- |
-| sales_status | string |         |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| order_id      | references | null: false, foreign_key: true |
+| zip_code      | integer    | null: false, foreign_key: true |
+| prefecture_id | references | null: false, foreign_key: true |
+| city          | string     | null: false                    |
+| street        | string     | null: false                    |
+| building      | string     | null: false                    |
+| phone_number  | integer    | null: false                    |
 
-## sales_statuses association
+## addresses association
 
-- has_many :items
-
-## shipping_fee_statuses (active_hash)
-
-| Column              | Type   | Options |
-| ------------------- | ------ | ------- |
-| shipping_fee_status | string |         |
-
-## shipping_fee_statuses association
-
-- has_many :items
-
-## prefectures table (active_hash)
-
-| Column     | Type   | Options |
-| ---------- | ------ | ------- |
-| prefecture | string |         |
-
-## prefectures association
-
-- has_many :items
-
-## item_scheduled_deliveries table (active_hash)
-
-| Column                  | Type   | Options |
-| ----------------------- | ------ | ------- |
-| item_scheduled_delivery | string |         |
-
-## item_scheduled_deliveries association
-
-- has_many :items
+- has_one :order
+- belongs_to :prefecture
