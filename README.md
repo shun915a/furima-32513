@@ -28,18 +28,13 @@
 | category                | integer | null: false, foreign_key: true |
 | sales_status            | integer | null: false, foreign_key: true |
 | shipping_fee_status     | integer | null: false, foreign_key: true |
-| prefecture              | integer | null: false, foreign_key: true |
+| prefecture_id           | integer | null: false, foreign_key: true |
 | item_scheduled_delivery | integer | null: false, foreign_key: true |
 
 ## items association
 
 - belongs_to :user
 - has_many :comments
-- has_one :category
-- has_one :sales_status
-- has_one :shipping_fee_status
-- has_one :prefecture
-- has_one :item_scheduled_delivery
 
 ## comments table
 
@@ -58,14 +53,13 @@
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
 | item   | references | null: false, foreign_key: true |
-| buyer  | references | null: false, foreign_key: true |
-| seller | references | null: false, foreign_key: true |
 
 ## orders association
 
-- has_one :item
-- has_one :user
+- belongs_to :user
+- belongs_to :item
 
 ## addresses table
 
@@ -82,4 +76,3 @@
 ## addresses association
 
 - has_one :order
-- belongs_to :prefecture
