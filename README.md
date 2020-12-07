@@ -36,6 +36,7 @@
 ## items association
 
 - belongs_to :user
+- has_one :order
 - has_many :comments
 
 ## comments table
@@ -69,7 +70,7 @@
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
 | order         | references | null: false, foreign_key: true |
-| zip_code      | integer    | null: false                    |
+| zip_code      | string     | null: false                    |
 | prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | street        | string     | null: false                    |
@@ -78,4 +79,4 @@
 
 ## addresses association
 
-- belongs_to :orders
+- belongs_to :order
