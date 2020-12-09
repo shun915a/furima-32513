@@ -15,9 +15,9 @@ class Item < ApplicationRecord
     validates :image
   end
 
-  validates :category_id, numericality: { other_than: 1 }
-  validates :sales_status_id, numericality: { other_than: 1 }
-  validates :shipping_fee_status_id, numericality: { other_than: 1 }
-  validates :prefecture_id, numericality: { other_than: 1 }
-  validates :item_scheduled_delivery_id, numericality: { other_than: 1 }
+  validates :category_id, numericality: { other_than: 0 }
+  validates :sales_status_id, numericality: { other_than: 0 }
+  validates :shipping_fee_status_id, numericality: { other_than: 0 }
+  validates :prefecture_id, numericality: { other_than: 0 }
+  validates :item_scheduled_delivery_id, numericality: { other_than: 0 }
 end
