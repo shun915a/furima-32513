@@ -16,10 +16,11 @@ class Item < ApplicationRecord
     validates :image
   end
 
-  with_options numericality: { other_than: 0 }
-  validates :category_id
-  validates :sales_status_id
-  validates :shipping_fee_status_id
-  validates :prefecture_id
-  validates :item_scheduled_delivery_id
+  with_options numericality: { other_than: 0 } do
+    validates :category_id
+    validates :sales_status_id
+    validates :shipping_fee_status_id
+    validates :prefecture_id
+    validates :item_scheduled_delivery_id
+  end
 end
