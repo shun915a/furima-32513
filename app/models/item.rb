@@ -8,9 +8,10 @@ class Item < ApplicationRecord
     validates :info
     validates :price,
               numericality: {
+                only_integer: true,
                 greater_than_or_equal_to: 300,
                 less_than_or_equal_to: 9_999_999,
-                message: 'Price Out of setting range'
+                message: 'out of setting range or not integer'
               }
     validates :image
   end
