@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーをログインページへ
   before_action :authenticate_user!, only: %i[new create edit update destroy]
-  before_action :set_item, only: %i[show edit update]
+  before_action :set_item, only: %i[show edit update destroy]
 
   def index
     @items = Item.order('created_at DESC')
@@ -34,6 +34,10 @@ class ItemsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def destroy
+    redirect_to root_path if @item.destroy
   end
 
   private
