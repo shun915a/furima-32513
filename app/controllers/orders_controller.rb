@@ -4,9 +4,17 @@ class OrdersController < ApplicationController
   end
 
   def create
-    binding.pry
     @item = Item.find(params[:item_id])
-    order = Order.create(order_params(@item))
+    order = Order.new(order_params)
+    if order.valid?
+      Payjp.api_key = '' # 秘密鍵を環境変数で設定
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: params[:token],
+        currency: 'jpy'
+      )
+      order.save
+    end
     address = Address.new(address_params(order))
     if address.save
       redirect_to root_path
@@ -17,8 +25,8 @@ class OrdersController < ApplicationController
 
   private
 
-  def order_params(item)
-    params.permit(:user_id, :item_id).merge(user_id: current_user.id, item_id: item.id)
+  def order_params
+    params.permit(:user_id, :item_id, :token).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def address_params(order)

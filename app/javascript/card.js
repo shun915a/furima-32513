@@ -11,7 +11,7 @@ const pay = () => {
       number: formData.get("order[number]"), // name属性で取得
       cvc: formData.get("order[cvc]"),
       exp_month: formData.get("order[exp_month]"),
-      exp_year: `20${formData.get("order[exp_year]")}` // 西暦4桁に書き換える
+      exp_year: `20${formData.get("order[exp_year]")}`, // 西暦4桁に書き換える
     };
 
     // カード情報を Payjp へ送信し token を取得
@@ -19,7 +19,7 @@ const pay = () => {
       if (status == 200) {
         const token = response.id;
         const renderDom = document.getElementById("charge-form");
-        const tokenObj = `<input value=${token} name='token' type="hidden">`; // hidden属性を付与し token を隠す
+        const tokenObj = `<input value=${token} name='token' type="hidden"> `; // hidden属性を付与し token を隠す
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
 
