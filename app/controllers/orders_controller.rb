@@ -7,7 +7,12 @@ class OrdersController < ApplicationController
     @item = Item.find(params[:item_id])
     order = Order.new(order_params)
     if order.valid?
-      pay_item
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+      Payjp::Charge.create(
+        amount: @item.price,
+        card: params[:token],
+        currency: 'jpy'
+      )
       order.save
     end
     address = Address.new(address_params(order))
@@ -33,14 +38,5 @@ class OrdersController < ApplicationController
       :building,
       :phone_number
     ).merge(order_id: order.id)
-  end
-
-  def pay_item
-    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] # 秘密鍵を環境変数で設定
-    Payjp::Charge.create(
-      amount: @item.price,
-      card: params[:token],
-      currency: 'jpy'
-    )
   end
 end
