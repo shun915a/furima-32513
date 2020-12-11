@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
   # ログインしていないユーザーをログインページへ
   before_action :authenticate_user!, only: %i[new create edit update destroy]
+  before_action :set_item, only: %i[show edit update]
+
   def index
     @items = Item.order('created_at DESC')
   end
@@ -20,16 +22,13 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
     redirect_to root_path unless user_signed_in? && current_user == @item.user
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
       redirect_to item_path(@item)
     else
@@ -38,6 +37,10 @@ class ItemsController < ApplicationController
   end
 
   private
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
 
   def item_params
     params.require(:item).permit(
