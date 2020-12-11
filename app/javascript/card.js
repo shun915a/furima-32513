@@ -24,10 +24,10 @@ const pay = () => {
       }
 
       // カードの情報をフォームから削除
-      document.getElementById("card_number").removeAttribute("name");
-      document.getElementById("card_cvc").removeAttribute("name");
-      document.getElementById("card_exp_month").removeAttribute("name");
-      document.getElementById("card_exp_year").removeAttribute("name");
+      document.getElementById("card-number").removeAttribute("name");
+      document.getElementById("card-cvc").removeAttribute("name");
+      document.getElementById("card-exp-month").removeAttribute("name");
+      document.getElementById("card-exp-year").removeAttribute("name");
 
       // サーバーサイドへ情報を送信
       // (e.preventDefault を設定しているため)

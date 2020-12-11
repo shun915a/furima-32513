@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    binding.pry
     @item = Item.find(params[:item_id])
     order = Order.create(order_params(@item))
     address = Address.new(address_params(order))
