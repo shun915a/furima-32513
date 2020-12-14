@@ -1,9 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_item
 
   def index
-    @item = Item.find(params[:item_id])
-
     # 自身の出品した商品の購入ページへアクセスしようとするとリダイレクト
     redirect_to root_path if current_user == @item.user
 
@@ -14,7 +13,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order_item = OrderItem.new(order_params)
     if @order_item.valid?
       Payjp.api_key = ENV['PAYJP_SECRET_KEY']
@@ -32,6 +30,10 @@ class OrdersController < ApplicationController
 
   private
 
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
   def order_params
     params.require(:order_item).permit(
       :token,
@@ -42,16 +44,5 @@ class OrdersController < ApplicationController
       :building,
       :phone_number
     ).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
-  end
-
-  def address_params(order)
-    params.permit(
-      :zip_code,
-      :prefecture_id,
-      :city,
-      :street,
-      :building,
-      :phone_number
-    ).merge(order_id: order.id)
   end
 end
