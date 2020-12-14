@@ -10,7 +10,7 @@ class OrderItem
     validates :prefecture_id, numericality: { other_than: 0 }
     validates :city
     validates :street
-    validates :phone_number, format: { with: /\d/, message: 'input only number' }
+    validates :phone_number, format: { with: /\d{4,11}/, message: 'input only number' }
   end
 
   def save
