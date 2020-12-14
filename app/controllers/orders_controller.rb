@@ -43,6 +43,6 @@ class OrdersController < ApplicationController
       :street,
       :building,
       :phone_number
-    ).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
+    ).merge(user: current_user.id, item: params[:item_id], token: params[:token])
   end
 end

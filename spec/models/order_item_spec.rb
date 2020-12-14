@@ -20,6 +20,18 @@ RSpec.describe OrderItem, type: :model do
     end
 
     context '購入情報保存が失敗' do
+      it 'user がなければ保存できない' do
+        @order_item.user = nil
+        @order_item.valid?
+        expect(@order_item.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item がなければ保存できない' do
+        @order_item.item = nil
+        @order_item.valid?
+        expect(@order_item.errors.full_messages).to include("Item can't be blank")
+      end
+
       it 'token がなければ保存できない' do
         @order_item.token = ''
         @order_item.valid?
