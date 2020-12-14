@@ -79,6 +79,17 @@ RSpec.describe OrderItem, type: :model do
         @order_item.valid?
         expect(@order_item.errors.full_messages).to include("Phone number can't be blank")
       end
+
+      it 'phone number が数字でなければ登録できない' do
+        @order_item.phone_number = 'abcdefg'
+        @order_item.valid?
+        expect(@order_item.errors.full_messages).to include('Phone number input correctly')
+      end
+      it 'phone number が12桁以上だと登録できない' do
+        @order_item.phone_number = '000111122220'
+        @order_item.valid?
+        expect(@order_item.errors.full_messages).to include('Phone number input correctly')
+      end
     end
   end
 end
