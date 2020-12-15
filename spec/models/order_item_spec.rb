@@ -8,7 +8,6 @@ RSpec.describe OrderItem, type: :model do
       @order_item = FactoryBot.build(:order_item)
       @order_item.user_id = @user.id
       @order_item.item_id = @item.id
-      sleep 0.1
     end
     context '購入情報保存が成功' do
       it 'すべての値が入力されていれば保存できる' do
