@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @order = Order.exists?(item_id: params[:id])
   end
 
   def edit
