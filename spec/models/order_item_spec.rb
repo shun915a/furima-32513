@@ -3,7 +3,11 @@ require 'rails_helper'
 RSpec.describe OrderItem, type: :model do
   describe '購入情報の保存' do
     before do
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
       @order_item = FactoryBot.build(:order_item)
+      @order_item.user_id = @user.id
+      @order_item.item_id = @item.id
     end
 
     context '購入情報保存が成功' do
@@ -18,14 +22,14 @@ RSpec.describe OrderItem, type: :model do
     end
 
     context '購入情報保存が失敗' do
-      it 'user がなければ保存できない' do
-        @order_item.user = nil
+      it 'user_id がなければ保存できない' do
+        @order_item.user_id = nil
         @order_item.valid?
         expect(@order_item.errors.full_messages).to include("User can't be blank")
       end
 
-      it 'item がなければ保存できない' do
-        @order_item.item = nil
+      it 'item_id がなければ保存できない' do
+        @order_item.item_id = nil
         @order_item.valid?
         expect(@order_item.errors.full_messages).to include("Item can't be blank")
       end
