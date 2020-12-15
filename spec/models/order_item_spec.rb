@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe OrderItem, type: :model do
   describe '購入情報の保存' do
     before do
-      @user = FactoryBot.build(:user)
-      @item = FactoryBot.build(:item)
       @order_item = FactoryBot.build(:order_item)
     end
 
