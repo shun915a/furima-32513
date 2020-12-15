@@ -8,6 +8,6 @@ FactoryBot.define do
     city { Faker::Address.city }
     street { Faker::Address.street_name }
     building { Faker::Address.building_number }
-    phone_number { Faker::PhoneNumber.phone_number }
+    phone_number { Faker::Number.number(digits: 11) }
   end
 end

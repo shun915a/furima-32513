@@ -56,6 +56,12 @@ RSpec.describe OrderItem, type: :model do
         expect(@order_item.errors.full_messages).to include('Zip code input correctly')
       end
 
+      it 'prefecture id がない場合は保存できない' do
+        @order_item.prefecture_id = nil
+        @order_item.valid?
+        expect(@order_item.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
       it 'prefecture を選択していない場合は保存できない' do
         @order_item.prefecture_id = 0
         @order_item.valid?
@@ -83,12 +89,12 @@ RSpec.describe OrderItem, type: :model do
       it 'phone number が数字でなければ登録できない' do
         @order_item.phone_number = 'abcdefg'
         @order_item.valid?
-        expect(@order_item.errors.full_messages).to include('Phone number input correctly')
+        expect(@order_item.errors.full_messages).to include('Phone number input only number')
       end
       it 'phone number が12桁以上だと登録できない' do
-        @order_item.phone_number = '000111122220'
+        @order_item.phone_number = '123456789012'
         @order_item.valid?
-        expect(@order_item.errors.full_messages).to include('Phone number input correctly')
+        expect(@order_item.errors.full_messages).to include('Phone number is too long (maximum is 11 characters)')
       end
     end
   end
