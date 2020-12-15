@@ -2,15 +2,15 @@ require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
   describe '購入情報の保存' do
+    before do
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.create(:item)
+      @order_item = FactoryBot.build(:order_item)
+      @order_item.user_id = @user.id
+      @order_item.item_id = @item.id
+      sleep 0.1
+    end
     context '購入情報保存が成功' do
-      before do
-        @user = FactoryBot.create(:user)
-        @item = FactoryBot.create(:item)
-        @order_item = FactoryBot.build(:order_item)
-        @order_item.user_id = @user.id
-        @order_item.item_id = @item.id
-      end
-
       it 'すべての値が入力されていれば保存できる' do
         expect(@order_item).to be_valid
       end
@@ -22,10 +22,6 @@ RSpec.describe OrderItem, type: :model do
     end
 
     context '購入情報保存が失敗' do
-      before do
-        @order_item = FactoryBot.build(:order_item)
-      end
-
       it 'user_id がなければ保存できない' do
         @order_item.user_id = nil
         @order_item.valid?
